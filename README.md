@@ -1,8 +1,34 @@
 https://www.twilio.com/blog/graphql-api-python-flask-ariadne
 
-Download/clone the repository then create a virtual environment, activate it and install the packages with pip:
+Download/clone the repository then go to the folder of the project and create a virtual environment, activate it and install the packages with pip:
+```
 pip install flask ariadne flask-sqlalchemy
-Then you can run in your terminal:
+```
+
+You will need to create the database, so, Fire up the terminal and start the python prompt by running the Python interpreter:
+```
+python
+```
+
+*Create the database table as follows:*
+```
+from main import db
+db.create_all()
+```
+
+create your first to-do item and save it to the database:
+```
+from datetime import datetime
+from api.models import Todo
+today = datetime.today().date()
+todo = Todo(description="Run a marathon", due_date=today, completed=False)
+todo.to_dict()  # {'id': None, 'completed': False, 'description': 'Run a marathon', 'due_date': '2020-10-22'}
+db.session.add(todo)
+db.session.commit()
+exit()  # To close the python prompt.
+```
+
+Now you can run in your terminal:
 ```
 export FLASK_APP=main.py
 flask run
@@ -69,9 +95,9 @@ mutation deleteone {
   }
 }
 ```
+If you modify something in your code, you should run again: *flask run*
 
-
-From here, we have the procedure to create the project from the beginnig, also you can follow the instructions in https://www.twilio.com/blog/graphql-api-python-flask-ariadne
+**From here, we have the procedure to create the project from the beginnig, also you can follow the instructions in https://www.twilio.com/blog/graphql-api-python-flask-ariadne**
 
 
 # Create a directory called todo_api and navigate to it.
